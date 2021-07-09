@@ -8,7 +8,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var restProgress = 0
     private var isPaused = false
     private var isStarted = true
     private var timer: CountDownTimer? = null
@@ -61,23 +60,20 @@ class MainActivity : AppCompatActivity() {
         btnStart.isEnabled = false
         timer = object : CountDownTimer(millisInFuture, countDownInterval) {
             override fun onTick(millisUntilFinished: Long) {
-                val timeRemaining = "${millisUntilFinished / 1000}"
+                val timeRemaining = millisUntilFinished / 1000
                 if (isPaused) {
-                    tvTimer.text = "${tvTimer.text}"
-                    restProgress--
+                    tvTimer.text = tvTimer.text
                     cancel()
                 } else {
-                    restProgress++
                     resumeFromMillis = millisUntilFinished
-                    progressBar.progress = 15 - restProgress
-                    tvTimer.text = timeRemaining
+                    progressBar.incrementProgressBy(-1)
+                    progressBar.progress = timeRemaining.toInt()
+                    tvTimer.text = timeRemaining.toString()
                 }
             }
 
             override fun onFinish() {
-                restProgress = 0
-                progressBar.progress = 15
-                tvTimer.text = 15.toString()
+                progressBar.progress = 0
                 btnStart.isEnabled = true
                 btnPause.isEnabled = false
             }
