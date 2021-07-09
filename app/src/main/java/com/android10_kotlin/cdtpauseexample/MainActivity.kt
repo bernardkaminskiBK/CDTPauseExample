@@ -19,8 +19,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //  tvTimer.text = (15).toString()
-
 //        llStartTimer.setOnClickListener {
 //            if (isStarted) {
 //                isPaused = true
@@ -35,20 +33,26 @@ class MainActivity : AppCompatActivity() {
 
         isPaused = false
         btnStart.isEnabled = false
+        btnResume.isEnabled = false
         timer(15000, 1000).start()
 
         btnStart.setOnClickListener {
             isPaused = false
             timer(15000, 1000).start()
+            btnPause.isEnabled = true
         }
 
         btnPause.setOnClickListener {
             isPaused = true
+            btnResume.isEnabled = true
+            btnPause.isEnabled = false
         }
 
         btnResume.setOnClickListener {
             timer(resumeFromMillis!!, 1000).start()
             isPaused = false
+            btnResume.isEnabled = false
+            btnPause.isEnabled = true
         }
 
     }
@@ -75,13 +79,10 @@ class MainActivity : AppCompatActivity() {
                 progressBar.progress = 15
                 tvTimer.text = 15.toString()
                 btnStart.isEnabled = true
+                btnPause.isEnabled = false
             }
         }
         return timer!!
-    }
-
-    private fun toast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
 }
