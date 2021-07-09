@@ -10,7 +10,6 @@ class MainActivity : AppCompatActivity() {
 
     private var isPaused = false
     private var isStarted = true
-    private var timer: CountDownTimer? = null
 
     private var resumeFromMillis: Long? = 0
 
@@ -58,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun timer(millisInFuture: Long, countDownInterval: Long): CountDownTimer {
         btnStart.isEnabled = false
-        timer = object : CountDownTimer(millisInFuture, countDownInterval) {
+        return object : CountDownTimer(millisInFuture, countDownInterval) {
             override fun onTick(millisUntilFinished: Long) {
                 val timeRemaining = millisUntilFinished / 1000
                 if (isPaused) {
@@ -78,7 +77,6 @@ class MainActivity : AppCompatActivity() {
                 btnPause.isEnabled = false
             }
         }
-        return timer!!
     }
 
 }
