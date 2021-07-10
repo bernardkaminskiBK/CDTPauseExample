@@ -27,12 +27,13 @@
             android:rotation="-90" />
 
         <LinearLayout
-            android:id="@+id/llStartTimer"
+            android:id="@+id/llTimer"
             android:layout_width="85dp"
             android:layout_height="85dp"
             android:layout_gravity="center"
             android:background="@drawable/item_circular_color_accent_background"
-            android:gravity="center">
+            android:gravity="center"
+            android:alpha="1">
 
             <TextView
                 android:id="@+id/tvTimer"
@@ -50,9 +51,9 @@
             android:layout_width="85dp"
             android:layout_height="85dp"
             android:layout_gravity="center"
-            android:background="@drawable/item_circular_color_accent_background"
+            android:background="@drawable/item_circular_color_white_background"
             android:gravity="center"
-            android:visibility="gone">
+            android:alpha="0">
 
             <ImageView
                 android:id="@+id/ivPauseStart"

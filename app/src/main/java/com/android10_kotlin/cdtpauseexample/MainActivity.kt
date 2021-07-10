@@ -3,7 +3,6 @@ package com.android10_kotlin.cdtpauseexample
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -18,22 +17,54 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        llStartTimer.setOnClickListener {
+        llTimer.setOnClickListener {
             if (isStarted) {
                 isPaused = true
                 isStarted = false
                 Toast.makeText(this, "paused", Toast.LENGTH_SHORT).show()
-                ivPauseStart.setImageResource(R.drawable.ic_baseline_play_arrow_24)
-//                tvTimer.visibility = View.GONE
-//                ivPauseStart.visibility = View.VISIBLE
+
+                llTimer.animate().apply {
+                    duration = 1000
+                    alpha(0f)
+                    llPauseStart.animate().apply {
+                        duration = 500
+                        alpha(1f)
+                        ivPauseStart.setImageResource(R.drawable.ic_baseline_pause_24)
+                    }
+                }.withEndAction {
+                    llPauseStart.animate().apply {
+                        duration = 500
+                        alpha(0f)
+                        llTimer.animate().apply {
+                            duration = 1000
+                            alpha(1f)
+                        }
+                    }
+                }
             } else {
                 isPaused = false
                 isStarted = true
                 timer(resumeFromMillis!!, 1000).start()
                 Toast.makeText(this, "started", Toast.LENGTH_SHORT).show()
-                ivPauseStart.setImageResource(R.drawable.ic_baseline_pause_24)
-//                tvTimer.visibility = View.GONE
-//                ivPauseStart.visibility = View.VISIBLE
+
+                llTimer.animate().apply {
+                    duration = 1000
+                    alpha(0f)
+                    llPauseStart.animate().apply {
+                        duration = 500
+                        alpha(1f)
+                        ivPauseStart.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+                    }
+                }.withEndAction {
+                    llPauseStart.animate().apply {
+                        duration = 500
+                        alpha(0f)
+                        llTimer.animate().apply {
+                            duration = 1000
+                            alpha(1f)
+                        }
+                    }
+                }
             }
         }
 
@@ -44,6 +75,8 @@ class MainActivity : AppCompatActivity() {
         btnStart.setOnClickListener {
             isPaused = false
             timer(15000, 1000).start()
+            llPauseStart.isEnabled = true
+            llTimer.isEnabled = true
         }
 
     }
@@ -67,6 +100,8 @@ class MainActivity : AppCompatActivity() {
             override fun onFinish() {
                 progressBar.progress = 0
                 btnStart.isEnabled = true
+                llPauseStart.isEnabled = false
+                llTimer.isEnabled = false
             }
         }
     }
