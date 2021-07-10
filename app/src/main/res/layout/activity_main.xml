@@ -39,9 +39,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#FFFFFF"
-                android:textSize="25sp"
+                android:textSize="30sp"
                 android:textStyle="bold"
                 tools:text="15" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llPauseStart"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_gravity="center"
+            android:background="@drawable/item_circular_color_accent_background"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/ivPauseStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_pause_24" />
+
         </LinearLayout>
 
     </FrameLayout>
@@ -52,19 +70,5 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="Start" />
-
-    <Button
-        android:id="@+id/btnPause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="Pause" />
-
-    <Button
-        android:id="@+id/btnResume"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="Resume" />
 
 </LinearLayout>

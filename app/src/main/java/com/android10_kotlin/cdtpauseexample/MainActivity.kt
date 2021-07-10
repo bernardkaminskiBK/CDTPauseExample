@@ -3,6 +3,7 @@ package com.android10_kotlin.cdtpauseexample
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -17,40 +18,32 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        llStartTimer.setOnClickListener {
-//            if (isStarted) {
-//                isPaused = true
-//                isStarted = false
-//            } else {
-//                isPaused = false
-//                isStarted = true
-//                timer(15000, 1000)
-//                toast("Started")
-//            }
-//        }
+        llStartTimer.setOnClickListener {
+            if (isStarted) {
+                isPaused = true
+                isStarted = false
+                Toast.makeText(this, "paused", Toast.LENGTH_SHORT).show()
+                ivPauseStart.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+//                tvTimer.visibility = View.GONE
+//                ivPauseStart.visibility = View.VISIBLE
+            } else {
+                isPaused = false
+                isStarted = true
+                timer(resumeFromMillis!!, 1000).start()
+                Toast.makeText(this, "started", Toast.LENGTH_SHORT).show()
+                ivPauseStart.setImageResource(R.drawable.ic_baseline_pause_24)
+//                tvTimer.visibility = View.GONE
+//                ivPauseStart.visibility = View.VISIBLE
+            }
+        }
 
         isPaused = false
         btnStart.isEnabled = false
-        btnResume.isEnabled = false
         timer(15000, 1000).start()
 
         btnStart.setOnClickListener {
             isPaused = false
             timer(15000, 1000).start()
-            btnPause.isEnabled = true
-        }
-
-        btnPause.setOnClickListener {
-            isPaused = true
-            btnResume.isEnabled = true
-            btnPause.isEnabled = false
-        }
-
-        btnResume.setOnClickListener {
-            timer(resumeFromMillis!!, 1000).start()
-            isPaused = false
-            btnResume.isEnabled = false
-            btnPause.isEnabled = true
         }
 
     }
@@ -74,7 +67,6 @@ class MainActivity : AppCompatActivity() {
             override fun onFinish() {
                 progressBar.progress = 0
                 btnStart.isEnabled = true
-                btnPause.isEnabled = false
             }
         }
     }
